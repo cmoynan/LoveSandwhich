@@ -26,15 +26,14 @@ def place_ships(board):
         board[row][col] = SHIP
 
 
-def print_board(board):
+def print_board(player_board, computer_board):
     """
-    Print the game board.
+    Print the player's board and the computer's board with missed shots revealed.
     """
-    print("   " + " ".join(str(i) for i in range(BOARD_SIZE)))
-    print("  " + "--" * BOARD_SIZE)
+    print("   " + " ".join(str(i) for i in range(BOARD_SIZE)) + "       " + " ".join(str(i) for i in range(BOARD_SIZE)))
+    print("  " + "--" * BOARD_SIZE + "      " + "--" * BOARD_SIZE)
     for i in range(BOARD_SIZE):
-        print(f"{i} | {' '.join(board[i])}")
-
+        print(f"{i} | {' '.join(player_board[i])}      {' '.join(computer_board[i])}")
 
 def get_player_guess():
     """
@@ -77,8 +76,9 @@ def play_game():
     while True:
         # Player's turn
         print("Player's turn:")
-        print_board(player_board)
+        print_board(player_board, computer_board)
         player_row, player_col = get_player_guess()
+        
 
         if computer_board[player_row][player_col] == SHIP:
             print("Hit!")
@@ -94,6 +94,7 @@ def play_game():
 
         # Computer's turn
         print("\nComputer's turn:")
+        print_board(player_board, computer_board)
         computer_row, computer_col = get_computer_guess()
 
         if player_board[computer_row][computer_col] == SHIP:
