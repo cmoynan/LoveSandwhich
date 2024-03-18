@@ -78,7 +78,6 @@ def play_game():
         print("Player's turn:")
         print_board(player_board, computer_board)
         player_row, player_col = get_player_guess()
-        
 
         if computer_board[player_row][player_col] == SHIP:
             print("Hit!")
@@ -88,13 +87,12 @@ def play_game():
             computer_board[player_row][player_col] = MISS
 
         # Check for player win
-        if all(EMPTY not in row for row in computer_board):
+        if check_game_over(computer_board):
             print("Congratulations! You sunk all the computer's battleships!")
             break
 
         # Computer's turn
         print("\nComputer's turn:")
-        print_board(player_board, computer_board)
         computer_row, computer_col = get_computer_guess()
 
         if player_board[computer_row][computer_col] == SHIP:
@@ -105,7 +103,7 @@ def play_game():
             player_board[computer_row][computer_col] = MISS
 
         # Check for computer win
-        if all(EMPTY not in row for row in player_board):
+        if check_game_over(player_board):
             print("Oops! The computer sunk all your battleships. Better luck next time!")
             break
 
